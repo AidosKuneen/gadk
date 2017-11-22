@@ -21,7 +21,7 @@ Examples
 
 ```go
 
-import "gadk"
+import "github.com/AidosKuneen/gadk"
 
 //Trits
 tritsFrom:=[]int8{1,-1,1,0,1,1,0,-1,0}
