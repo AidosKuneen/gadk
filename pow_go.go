@@ -33,9 +33,6 @@ var (
 func init() {
 	pows["PowGo"] = PowGo
 	PowProcs = runtime.NumCPU()
-	if PowProcs != 1 {
-		PowProcs--
-	}
 }
 
 //GetBestPoW returns most preferable PoW func.

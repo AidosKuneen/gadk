@@ -1,6 +1,8 @@
 package gadk
 
-import "testing"
+import (
+	"testing"
+)
 
 const apiServer = "http://78.46.250.88:15555"
 
@@ -53,6 +55,7 @@ func TestTransfer2(t *testing.T) {
 			Tag:     "MOUDAMEPO",
 		},
 	}
+
 	var bdl Bundle
 	for i := 0; i < 5; i++ {
 		api := NewAPI(apiServer, nil)
