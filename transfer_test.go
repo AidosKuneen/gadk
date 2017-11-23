@@ -1,7 +1,6 @@
 package gadk
 
 import (
-	"log"
 	"testing"
 )
 
@@ -79,7 +78,6 @@ func TestTransfer2(t *testing.T) {
 	}
 	name, pow := GetBestPoW()
 	t.Log("using PoW: ", name)
-	log.Println(name)
 
 	for i := 0; i < 5; i++ {
 		api := NewAPI(apiServer, nil)

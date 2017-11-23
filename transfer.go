@@ -2,7 +2,6 @@ package gadk
 
 import (
 	"errors"
-	"log"
 	"math"
 	"time"
 )
@@ -278,9 +277,7 @@ func doPow(tra *GetTransactionsToApproveResponse, depth int64, trytes []Transact
 			trytes[i].TrunkTransaction = prev
 			trytes[i].BranchTransaction = tra.TrunkTransaction
 		}
-		log.Println(time.Now())
 		trytes[i].Nonce, err = pow(trytes[i].Trytes(), int(mwm))
-		log.Println(time.Now())
 		if err != nil {
 			return err
 		}
