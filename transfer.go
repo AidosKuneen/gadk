@@ -2,6 +2,7 @@ package gadk
 
 import (
 	"errors"
+	"log"
 	"math"
 	"time"
 )
@@ -306,7 +307,9 @@ func SendTrytes(api *API, depth int64, trytes []Transaction, mwm int64, pow PowF
 		}
 		trytes = attached.Trytes
 	} else {
+		log.Println("1")
 		err := doPow(tra, depth, trytes, mwm, pow)
+		log.Println("2")
 		if err != nil {
 			return err
 		}
