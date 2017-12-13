@@ -133,6 +133,17 @@ func (t *Transaction) HasValidNonce() bool {
 	return true
 }
 
+//HasValidNonceMWM checks t's hash has valid MinWeightMagnitude.
+func (t *Transaction) HasValidNonceMWM(mwm int) bool {
+	h := t.Hash()
+	for i := len(h) - 1; i > len(h)-1-mwm/3; i-- {
+		if h[i] != '9' {
+			return false
+		}
+	}
+	return true
+}
+
 //Hash returns the hash of the transaction.
 func (t *Transaction) Hash() Trytes {
 	return t.Trytes().Hash()
