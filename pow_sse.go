@@ -2,7 +2,7 @@
 
 package gadk
 
-// #cgo LDFLAGS: -msse2 -lpthread
+// #cgo LDFLAGS:-lpthread
 // #cgo CPPFLAGS: -msse2 -Wall
 /*
  #include <stdio.h>
