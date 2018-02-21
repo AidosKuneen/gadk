@@ -32,7 +32,7 @@ func TestTransfer1(t *testing.T) {
 	var bal Balances
 	for i := 0; i < 5; i++ {
 		api := NewAPI(apiServer, nil)
-		_, bal, err = GetInputs(api, seed, 0, 10, 1000, 2)
+		_, bal, err = GetInputs(api, seed, 0, 100, 1000, 2)
 		if err == nil {
 			break
 		}
