@@ -2,8 +2,12 @@ language: go
 sudo: required
 
 go:
-  - 1.x
+  - 1.10.x
 
+env:
+  global:
+  - CGO_CPPFLAGS_ALLOW: "-msse2"
+  
 before_install:
 - go get -u github.com/axw/gocov/gocov
 - go get -u github.com/alecthomas/gometalinter
