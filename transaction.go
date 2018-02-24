@@ -66,8 +66,23 @@ func NewTransaction(trytes Trytes) (*Transaction, error) {
 	if err := checkTx(trytes); err != nil {
 		return nil, err
 	}
-	err := t.parser(trytes.Trits())
-	return &t, err
+	var err error
+	t.SignatureMessageFragment = trytes[SignatureMessageFragmentTrinaryOffset/3 : SignatureMessageFragmentTrinarySize/3]
+	t.Address, err = trytes[AddressTrinaryOffset/3 : (AddressTrinaryOffset+AddressTrinarySize)/3].ToAddress()
+	if err != nil {
+		return nil, err
+	}
+	t.Value = trytes[ValueTrinaryOffset/3 : (ValueTrinaryOffset+ValueTrinarySize)/3].Trits().Int()
+	t.Tag = trytes[TagTrinaryOffset/3 : (TagTrinaryOffset+TagTrinarySize)/3]
+	timestamp := trytes[TimestampTrinaryOffset/3 : (TimestampTrinaryOffset+TimestampTrinarySize)/3].Trits().Int()
+	t.Timestamp = time.Unix(timestamp, 0)
+	t.CurrentIndex = trytes[CurrentIndexTrinaryOffset/3 : (CurrentIndexTrinaryOffset+CurrentIndexTrinarySize)/3].Trits().Int()
+	t.LastIndex = trytes[LastIndexTrinaryOffset/3 : (LastIndexTrinaryOffset+LastIndexTrinarySize)/3].Trits().Int()
+	t.Bundle = trytes[BundleTrinaryOffset/3 : (BundleTrinaryOffset+BundleTrinarySize)/3]
+	t.TrunkTransaction = trytes[TrunkTransactionTrinaryOffset/3 : (TrunkTransactionTrinaryOffset+TrunkTransactionTrinarySize)/3]
+	t.BranchTransaction = trytes[BranchTransactionTrinaryOffset/3 : (BranchTransactionTrinaryOffset+BranchTransactionTrinarySize)/3]
+	t.Nonce = trytes[NonceTrinaryOffset/3 : (NonceTrinaryOffset+NonceTrinarySize)/3]
+	return &t, nil
 }
 
 func checkTx(trytes Trytes) error {
