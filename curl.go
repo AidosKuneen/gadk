@@ -59,10 +59,10 @@ func (c *Curl) Absorb(inn Trytes) {
 
 // Transform does Transform in sponge func.
 func (c *Curl) Transform() {
-	if transformC != nil {
-		transformC(c.state)
-		return
-	}
+	// if transformC != nil {
+	// 	transformC(c.state)
+	// 	return
+	// }
 	var cpy [stateSize]int8
 	for r := 27; r > 0; r-- {
 		copy(cpy[:], c.state)
