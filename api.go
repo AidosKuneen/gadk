@@ -2,33 +2,32 @@ package gadk
 
 import (
 	"bytes"
-	"encoding/json"
+	"github.com/pquerna/ffjson/ffjson"
 	"errors"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"strconv"
 	"sync"
+	"github.com/valyala/fasthttp"
 )
 
 //API is for calling APIs.
 type API struct {
-	client   *http.Client
+	client *fasthttp.Client
 	endpoint string
 }
 
 // NewAPI takes an (optional) endpoint and optional http.Client and returns
 // an API struct. If an empty endpoint is supplied, then "http://localhost:14265"
 // is used.
-func NewAPI(endpoint string, c *http.Client) *API {
-	if c == nil {
-		c = http.DefaultClient
-	}
+
+func NewAPI(endpoint string, c *fasthttp.Client) *API {
+	// if c == nil {
+	// 	c = ""
+	// }
 
 	if endpoint == "" {
 		endpoint = "http://localhost:14265/"
 	}
-
 	return &API{client: c, endpoint: endpoint}
 }
 
@@ -46,46 +45,42 @@ func handleError(err *ErrorResponse, err1, err2 error) error {
 }
 
 func (api *API) do(cmd interface{}, out interface{}) error {
-	b, err := json.Marshal(cmd)
-	if err != nil {
-		return err
-	}
-	rd := bytes.NewReader(b)
-	req, err := http.NewRequest("POST", api.endpoint, rd)
+	b, err := ffjson.Marshal(cmd)
 	if err != nil {
 		return err
 	}
 
-	req.Header.Set("Content-Type", "application/json")
-	resp, err := api.client.Do(req)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err = resp.Body.Close(); err != nil {
-			fmt.Println(err)
-		}
-	}()
+	req := fasthttp.AcquireRequest()
+	defer fasthttp.ReleaseRequest(req)
+	req.Header.SetMethod("POST")
+	req.Header.SetContentType("application/json")
+    req.SetBody(b)
+	req.SetRequestURI(api.endpoint)
 
-	bs, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
+
+	resp := fasthttp.AcquireResponse()
+	defer fasthttp.ReleaseResponse(resp)
+
+	if err := api.client.Do(req, resp); err != nil {
+		panic("handle error")
 	}
-	if resp.StatusCode != http.StatusOK {
+	body := resp.Body()
+
+	// if resp.StatusCode != fasthttp.StatusOK {
+	// 	errResp := &ErrorResponse{}
+	// 	err = json.Unmarshal(body, errResp)
+	// 	return handleError(errResp, err, fmt.Errorf("http status %d while calling API", resp.StatusCode))
+	// }
+	if bytes.Contains(body, []byte(`"error"`)) || bytes.Contains(body, []byte(`"exception"`)) {
 		errResp := &ErrorResponse{}
-		err = json.Unmarshal(bs, errResp)
-		return handleError(errResp, err, fmt.Errorf("http status %d while calling API", resp.StatusCode))
-	}
-	if bytes.Contains(bs, []byte(`"error"`)) || bytes.Contains(bs, []byte(`"exception"`)) {
-		errResp := &ErrorResponse{}
-		err = json.Unmarshal(bs, errResp)
+		err = ffjson.Unmarshal(body, errResp)
 		return handleError(errResp, err, fmt.Errorf("unknown error occured while calling API"))
 	}
 
 	if out == nil {
 		return nil
 	}
-	return json.Unmarshal(bs, out)
+	return ffjson.Unmarshal(body, out)
 }
 
 //ErrorResponse is for occuring exception while calling API.
@@ -228,6 +223,28 @@ func (api *API) GetTips() (*GetTipsResponse, error) {
 	resp := &GetTipsResponse{}
 	err := api.do(map[string]string{
 		"command": "getTips",
+	}, resp)
+	return resp, err
+}
+
+//GetPeerAddressesRequest is for GetPeerAddressesRequest API request.
+type GetPeerAddressesRequest struct {
+	Command string `json:"command"`
+}
+
+//GetPeersAddressesResponse is for GetPeerAddresses API response.
+type GetPeerAddressesResponse struct {
+	Duration int64    `json:"duration"`
+	PeerList   []string `json:"peerlist"`
+}
+
+//GetPeerAddresses calls GetPeersAddress API.
+func (api *API) GetPeerAddresses(*GetPeerAddressesRequest) (*GetPeerAddressesResponse, error) {
+	resp := &GetPeerAddressesResponse{}
+	err := api.do(&struct {
+		Command string `json:"command"`
+	}{
+		"getPeerAddresses",
 	}, resp)
 	return resp, err
 }
