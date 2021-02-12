@@ -5,17 +5,13 @@ go:
   - 1.x
 
 before_install:
-- go get -u github.com/axw/gocov/gocov
-- go get -u github.com/alecthomas/gometalinter
-- go get -u github.com/mattn/goveralls
-- go get -u golang.org/x/tools/cmd/cover
-- export PATH=$PATH:$GOPATH/bin
-- gometalinter --install --update
-- go generate -x ./...
+  - go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.36.0
+  - export PATH=$PATH:$GOPATH/bin
+  - go generate -x ./...
 
 script:
-- go test ./... -tags travis -v  -timeout 100m
-#- travis_wait 30 go test ./... -tags travis -v  -timeout 100m
+  - go test ./... -v -run Pow -timeout 100m
+  - go test ./... -tags=gpu -v -run Pow -timeout 100m
 
 after_success:
-- gometalinter -e bindata --deadline=1000s ./...
+  - golangci-lint run
