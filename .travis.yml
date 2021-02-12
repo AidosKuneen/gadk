@@ -10,7 +10,8 @@ before_install:
   - go generate -x ./...
 
 script:
-  - go test ./... -tags travis -v  -timeout 100m
+  - go test ./... -v -run Pow -timeout 100m
+  - go test ./... -tags=gpu -v -run Pow -timeout 100m
 
 after_success:
   - golangci-lint run
