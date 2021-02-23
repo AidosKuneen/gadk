@@ -555,7 +555,7 @@ type GetPeerAddressesResponse struct {
 	PeerList []string `json:"peerlist"`
 }
 
-//AddNeighbors calls AddNeighbors API.
+//GetPeerAddresses calls GetPeerAddresses API.
 func (api *API) GetPeerAddresses() (*GetPeerAddressesResponse, error) {
 	resp := &GetPeerAddressesResponse{}
 	err := api.do(&GetPeerAddressesRequest{
