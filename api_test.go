@@ -213,3 +213,18 @@ func TestAPIStoreTransactions(t *testing.T) {
 	}
 }
 */
+
+func TestAPIGetPeerAddresses(t *testing.T) {
+	var err error
+	var resp *GetPeerAddressesResponse
+
+	api := NewAPI(server, nil)
+	resp, err = api.GetPeerAddresses()
+
+	if err != nil {
+		t.Fatalf("GetPeerAddresses() expected err to be nil but got %v", err)
+	}
+	if len(resp.PeerList) == 0 {
+		t.Error("GetPeerAddresses() returned invalid response with empty peer list")
+	}
+}

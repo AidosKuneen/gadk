@@ -12,6 +12,7 @@ before_install:
 script:
   - go test ./... -v -run Pow -timeout 100m
   - go test ./... -tags=gpu -v -run Pow -timeout 100m
+  - go test ./... -v -run APIGetPeerAddresses -timeout 100m
 
 after_success:
   - golangci-lint run
