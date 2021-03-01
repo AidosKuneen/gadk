@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"strings"
 	"sync"
 )
 
@@ -544,22 +545,50 @@ func (api *API) GetLatestInclusion(hash []Trytes) ([]bool, error) {
 	return resp.States, nil
 }
 
+type PeerAddress struct {
+	Address string
+	Port    string
+}
+
 //GetPeerAddressesRequest is for GetPeerAddresses API request.
 type GetPeerAddressesRequest struct {
 	Command string `json:"command"`
 }
 
+//GetPeerAddressesRawResponse is for raw GetPeerAddresses API response.
+type GetPeerAddressesRawResponse struct {
+	Duration int64    `json:"duration"`
+	Peers    []string `json:"peerlist"`
+}
+
 //GetPeerAddressesResponse is for GetPeerAddresses API response.
 type GetPeerAddressesResponse struct {
-	Duration int64    `json:"duration"`
-	PeerList []string `json:"peerlist"`
+	Duration int64         `json:"duration"`
+	Peers    []PeerAddress `json:"peerlist"`
 }
 
 //GetPeerAddresses calls GetPeerAddresses API.
 func (api *API) GetPeerAddresses() (*GetPeerAddressesResponse, error) {
+	rawResp := &GetPeerAddressesRawResponse{}
 	resp := &GetPeerAddressesResponse{}
 	err := api.do(&GetPeerAddressesRequest{
 		"getPeerAddresses",
-	}, resp)
+	}, rawResp)
+	if err == nil {
+		// Parse peer addresses with the following format: "127.0.0.1:12345|ipv4" and allow only IPv4 for now.
+		var addressParts, hostParts []string
+		for _, peerAddress := range rawResp.Peers {
+			if addressParts = strings.Split(peerAddress, "|"); len(addressParts) != 2 {
+				continue
+			}
+			if addressParts[1] != "ipv4" {
+				continue
+			}
+			if hostParts = strings.Split(addressParts[0], ":"); len(hostParts) != 2 {
+				continue
+			}
+			resp.Peers = append(resp.Peers, PeerAddress{Address: hostParts[0], Port: hostParts[1]})
+		}
+	}
 	return resp, err
 }
