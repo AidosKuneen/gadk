@@ -224,7 +224,7 @@ func TestAPIGetPeerAddresses(t *testing.T) {
 	if err != nil {
 		t.Fatalf("GetPeerAddresses() expected err to be nil but got %v", err)
 	}
-	if len(resp.PeerList) == 0 {
+	if len(resp.Peers) == 0 {
 		t.Error("GetPeerAddresses() returned invalid response with empty peer list")
 	}
 }
