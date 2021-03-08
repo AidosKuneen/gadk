@@ -10,6 +10,7 @@ var (
 	seed Trytes = "VOQHWAPIKQNYQZRYRMJIYSLPBVLFOTPJMQKKNYDANFTG9ICYDLRUJPCDDWDLD9YEGIKISSHWWHKOWONMN"
 )
 
+// TODO Fix
 func TestTransfer1(t *testing.T) {
 	var err error
 	var adr Address
@@ -46,6 +47,8 @@ func TestTransfer1(t *testing.T) {
 	}
 
 }
+
+// TODO Fix
 func TestTransfer2(t *testing.T) {
 	var err error
 	trs := []Transfer{
