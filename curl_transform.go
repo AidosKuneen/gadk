@@ -37,6 +37,10 @@ void transform(char state[])
 */
 import "C"
 
+var (
+	transformC func(Trits)
+)
+
 // Transform does Transform in sponge func in C lang.
 func init() {
 	transformC = transformInC
