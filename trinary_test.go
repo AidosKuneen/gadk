@@ -2,20 +2,20 @@ package gadk
 
 import "testing"
 
-func TestValidTryte(t *testing.T) {
+func TestTrinaryValidTryte(t *testing.T) {
 	type validTryteTC struct {
 		in    rune
 		valid bool
 	}
 
 	var validTryteCases = []validTryteTC{
-		validTryteTC{in: 'A', valid: true},
-		validTryteTC{in: 'Z', valid: true},
-		validTryteTC{in: '9', valid: true},
-		validTryteTC{in: '8', valid: false},
-		validTryteTC{in: 'a', valid: false},
-		validTryteTC{in: '-', valid: false},
-		validTryteTC{in: 'Ɩ', valid: false},
+		{in: 'A', valid: true},
+		{in: 'Z', valid: true},
+		{in: '9', valid: true},
+		{in: '8', valid: false},
+		{in: 'a', valid: false},
+		{in: '-', valid: false},
+		{in: 'Ɩ', valid: false},
 	}
 
 	for _, tc := range validTryteCases {
@@ -25,17 +25,17 @@ func TestValidTryte(t *testing.T) {
 	}
 }
 
-func TestValidTrytes(t *testing.T) {
+func TestTrinaryValidTrytes(t *testing.T) {
 	type validTryteTC struct {
 		in    Trytes
 		valid bool
 	}
 
 	var validTryteCases = []validTryteTC{
-		validTryteTC{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ9", valid: true},
-		validTryteTC{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ90", valid: false},
-		validTryteTC{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ9 ", valid: false},
-		validTryteTC{in: "Ɩ", valid: false},
+		{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ9", valid: true},
+		{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ90", valid: false},
+		{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ9 ", valid: false},
+		{in: "Ɩ", valid: false},
 	}
 
 	for _, tc := range validTryteCases {
@@ -45,18 +45,18 @@ func TestValidTrytes(t *testing.T) {
 	}
 }
 
-func TestValidTrit(t *testing.T) {
+func TestTrinaryValidTrit(t *testing.T) {
 	type validTritTC struct {
 		in    int8
 		valid bool
 	}
 
 	var validTritCases = []validTritTC{
-		validTritTC{in: -1, valid: true},
-		validTritTC{in: 0, valid: true},
-		validTritTC{in: 1, valid: true},
-		validTritTC{in: -2, valid: false},
-		validTritTC{in: 2, valid: false},
+		{in: -1, valid: true},
+		{in: 0, valid: true},
+		{in: 1, valid: true},
+		{in: -2, valid: false},
+		{in: 2, valid: false},
 	}
 
 	for _, tc := range validTritCases {
@@ -66,18 +66,18 @@ func TestValidTrit(t *testing.T) {
 	}
 }
 
-func TestValidTrits(t *testing.T) {
+func TestTrinaryValidTrits(t *testing.T) {
 	type validTritsTC struct {
 		in    Trits
 		valid bool
 	}
 
 	var validTritsCases = []validTritsTC{
-		validTritsTC{in: Trits{0}, valid: true},
-		validTritsTC{in: Trits{-1}, valid: true},
-		validTritsTC{in: Trits{1}, valid: true},
-		validTritsTC{in: Trits{0, -1, 1}, valid: true},
-		validTritsTC{in: Trits{2, -1, 1}, valid: false},
+		{in: Trits{0}, valid: true},
+		{in: Trits{-1}, valid: true},
+		{in: Trits{1}, valid: true},
+		{in: Trits{0, -1, 1}, valid: true},
+		{in: Trits{2, -1, 1}, valid: false},
 	}
 
 	for _, tc := range validTritsCases {
@@ -87,7 +87,7 @@ func TestValidTrits(t *testing.T) {
 	}
 }
 
-func TestConvert(t *testing.T) {
+func TestTrinaryConvert(t *testing.T) {
 	trits := Trits{0, 1, -1, 1, 1, -1, -1, 1, 1, 0, 0, 1, 0, 1, 1}
 	invalid := []int8{1, -1, 2, 0, 1, -1}
 
@@ -121,7 +121,7 @@ func TestConvert(t *testing.T) {
 	}
 }
 
-func TestNormalize(t *testing.T) {
+func TestTrinaryNormalize(t *testing.T) {
 	var bundleHash Trytes = "DEXRPLKGBROUQMKCLMRPG9HFKCACDZ9AB9HOJQWERTYWERJNOYLW9PKLOGDUPC9DLGSUH9UHSKJOASJRU"
 	no := []int8{-13, -13, -13, -13, -11, 12, 11, 7, 2, -9, -12, -6, -10, 13, 11, 3, 12, 13, -9, -11, 7, 0, 8, 6,
 		11, 3, 1, 13, 13, 13, 7, 1, 2, 0, 8, -12, 10, -10, -4, 5, -9, -7, -2, -4, 5, -9, 10, -13, -12, -2, 12, -4,

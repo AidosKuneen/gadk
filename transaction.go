@@ -12,9 +12,9 @@ type Transaction struct {
 	Address                  Address
 	Value                    int64 `json:",string"`
 	Tag                      Trytes
-	Timestamp                time.Time `json:",string"`
-	CurrentIndex             int64     `json:",string"`
-	LastIndex                int64     `json:",string"`
+	Timestamp                time.Time
+	CurrentIndex             int64 `json:",string"`
+	LastIndex                int64 `json:",string"`
 	Bundle                   Trytes
 	TrunkTransaction         Trytes
 	BranchTransaction        Trytes

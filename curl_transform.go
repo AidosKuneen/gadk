@@ -39,7 +39,7 @@ import "C"
 
 // Transform does Transform in sponge func in C lang.
 func init() {
-	transformC = transformInC
+	_ = transformInC
 }
 
 func transformInC(state Trits) {

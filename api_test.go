@@ -153,6 +153,8 @@ func TestAPIGetTransactionsToApprove(t *testing.T) {
 		t.Errorf("GetTransactionsToApprove() return empty branch and/or trunk transactions\n%#v", resp)
 	}
 }
+
+// TODO Fix test
 func TestGetLatestInclusion(t *testing.T) {
 	var err error
 	var resp []bool

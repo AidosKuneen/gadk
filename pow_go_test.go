@@ -21,7 +21,7 @@ func testPowGo(t *testing.T) {
 func TestPowGo(t *testing.T) {
 	s := time.Now()
 	testPowGo(t)
-	ti := time.Now().Sub(s)
+	ti := time.Since(s)
 	sp := float64(countGo) / 1000 / ti.Seconds()
 	t.Logf("%d kH/sec on Go PoW", int(sp))
 }

@@ -1,6 +1,7 @@
 [![GoDoc](https://godoc.org/github.com/AidosKuneen/gadk?status.svg)](https://godoc.org/github.com/AidosKuneen/gadk)
-[![Build Status](https://travis-ci.org/AidosKuneen/gadk.svg?branch=master)](https://travis-ci.org/AidosKuneen/gadk)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/AidosKuneen/gadk/LICENSE)
+![Golangci lint](https://github.com/AidosKuneen/gadk/actions/workflows/golangci-lint.yml/badge.svg)
+![Tests](https://github.com/AidosKuneen/gadk/actions/workflows/tests.yml/badge.svg)
 
 gadk
 =====

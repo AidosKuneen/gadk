@@ -23,7 +23,7 @@ func testPowC(t *testing.T) {
 func TestPowC(t *testing.T) {
 	s := time.Now()
 	testPowC(t)
-	ti := time.Now().Sub(s)
+	ti := time.Since(s)
 	sp := float64(countC) / 1000 / ti.Seconds()
 	t.Logf("%d kH/sec on C PoW", int(sp))
 }
