@@ -13,8 +13,8 @@ type Transaction struct {
 	Value                    int64 `json:",string"`
 	Tag                      Trytes
 	Timestamp                time.Time
-	CurrentIndex             int64     `json:",string"`
-	LastIndex                int64     `json:",string"`
+	CurrentIndex             int64 `json:",string"`
+	LastIndex                int64 `json:",string"`
 	Bundle                   Trytes
 	TrunkTransaction         Trytes
 	BranchTransaction        Trytes
