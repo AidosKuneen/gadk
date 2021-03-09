@@ -6,7 +6,6 @@ const (
 )
 
 var (
-	transformC func(Trits)
 	truthTable = [11]int8{1, 0, -1, 0, 1, -1, 0, 0, -1, 1, 0}
 	indices    [stateSize + 1]int
 )

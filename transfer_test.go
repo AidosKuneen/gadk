@@ -52,7 +52,7 @@ func TestTransfer1(t *testing.T) {
 func TestTransfer2(t *testing.T) {
 	var err error
 	trs := []Transfer{
-		Transfer{
+		{
 			Address: "ZTBTQDHNZBVJXOJSIMQPUHQORZFALAHWRBYJQMRFTVSDDRLICVGBOEEXIJSMNNSWEVICVAMEZPBVASNSETGEIMKSGA",
 			Value:   20,
 			Tag:     "MOUDAMEPO",

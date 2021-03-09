@@ -9,13 +9,13 @@ func TestTrinaryValidTryte(t *testing.T) {
 	}
 
 	var validTryteCases = []validTryteTC{
-		validTryteTC{in: 'A', valid: true},
-		validTryteTC{in: 'Z', valid: true},
-		validTryteTC{in: '9', valid: true},
-		validTryteTC{in: '8', valid: false},
-		validTryteTC{in: 'a', valid: false},
-		validTryteTC{in: '-', valid: false},
-		validTryteTC{in: 'Ɩ', valid: false},
+		{in: 'A', valid: true},
+		{in: 'Z', valid: true},
+		{in: '9', valid: true},
+		{in: '8', valid: false},
+		{in: 'a', valid: false},
+		{in: '-', valid: false},
+		{in: 'Ɩ', valid: false},
 	}
 
 	for _, tc := range validTryteCases {
@@ -32,10 +32,10 @@ func TestTrinaryValidTrytes(t *testing.T) {
 	}
 
 	var validTryteCases = []validTryteTC{
-		validTryteTC{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ9", valid: true},
-		validTryteTC{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ90", valid: false},
-		validTryteTC{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ9 ", valid: false},
-		validTryteTC{in: "Ɩ", valid: false},
+		{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ9", valid: true},
+		{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ90", valid: false},
+		{in: "ABCDEFGHIJKLMNOPQRSTUVWXYZ9 ", valid: false},
+		{in: "Ɩ", valid: false},
 	}
 
 	for _, tc := range validTryteCases {
@@ -52,11 +52,11 @@ func TestTrinaryValidTrit(t *testing.T) {
 	}
 
 	var validTritCases = []validTritTC{
-		validTritTC{in: -1, valid: true},
-		validTritTC{in: 0, valid: true},
-		validTritTC{in: 1, valid: true},
-		validTritTC{in: -2, valid: false},
-		validTritTC{in: 2, valid: false},
+		{in: -1, valid: true},
+		{in: 0, valid: true},
+		{in: 1, valid: true},
+		{in: -2, valid: false},
+		{in: 2, valid: false},
 	}
 
 	for _, tc := range validTritCases {
@@ -73,11 +73,11 @@ func TestTrinaryValidTrits(t *testing.T) {
 	}
 
 	var validTritsCases = []validTritsTC{
-		validTritsTC{in: Trits{0}, valid: true},
-		validTritsTC{in: Trits{-1}, valid: true},
-		validTritsTC{in: Trits{1}, valid: true},
-		validTritsTC{in: Trits{0, -1, 1}, valid: true},
-		validTritsTC{in: Trits{2, -1, 1}, valid: false},
+		{in: Trits{0}, valid: true},
+		{in: Trits{-1}, valid: true},
+		{in: Trits{1}, valid: true},
+		{in: Trits{0, -1, 1}, valid: true},
+		{in: Trits{2, -1, 1}, valid: false},
 	}
 
 	for _, tc := range validTritsCases {

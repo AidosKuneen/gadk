@@ -31,25 +31,25 @@ type addressTestCase struct {
 }
 
 var addressTCs = []addressTestCase{
-	addressTestCase{
+	{
 		addr:          "RGVOWCDJAGSO9TNLBBPUVYE9KHBOAZNVFRVKVYYCHRKQRKRNKGGWBF9WCRJVROKLVKWZUMBABVJGAALWU",
 		validAddr:     true,
 		checksum:      "QNXFPRSPG",
 		validChecksum: true,
 	},
-	addressTestCase{
+	{
 		addr:          "",
 		validAddr:     false,
 		checksum:      "",
 		validChecksum: true,
 	},
-	addressTestCase{
+	{
 		addr:          "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
 		validAddr:     true,
 		checksum:      "999999999",
 		validChecksum: true,
 	},
-	addressTestCase{
+	{
 		addr:          "RGVOWCDJAGSO9TNLBBPUVYE9KHBOAZNVFRVKVYYCHRKQRKRNKGGWBF9WCRJVROKLVKWZUMBABVJGAALWU",
 		validAddr:     true,
 		checksum:      "999999999",
